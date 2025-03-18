@@ -1,7 +1,22 @@
 from django.urls import path
 from . import views
+from rest_framework.authtoken.views import obtain_auth_token
+from .views import CustomAuthToken
+from .views import CrearUsuarioView 
+from .views import ListaUsuariosView, UsuarioDetalleView
+
+
 
 urlpatterns = [
+
+
+    path('api/login/', CustomAuthToken.as_view(), name='api_login'),
+    path('api/usuarios/', CrearUsuarioView.as_view(), name='crear_usuario'),
+    path('api/usuarios2/', ListaUsuariosView.as_view(), name='lista_usuarios'),
+    path('api/usuarios2/<int:id>/', UsuarioDetalleView.as_view(), name='detalle_usuario'),
+    
+
+
     # Rutas para Categorias
     path("Categorias/", views.CategoriaListAPIView.as_view(), name="lista_categoria"),
     path("Categorias/<int:categoria_id>/", views.CategoriaRetrieveAPIView.as_view(), name="detail_categoria"),
@@ -58,3 +73,5 @@ urlpatterns = [
     path("Movimientos/update/<int:id_movimiento>/", views.MovimientosRetrieveUpdateAPIView.as_view(), name="update_movimiento"),
     path("Movimientos/delete/<int:id_movimiento>/", views.MovimientosDestroyAPIView.as_view(), name="delete_movimiento"),
 ]
+
+

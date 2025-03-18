@@ -26,7 +26,7 @@ class ProveedorListSerializer(serializers.ModelSerializer):
 class UsuarioListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['user_id', 'nombre', 'rol']  # Campos de Usuario
+        fields = ['user_id', 'nombre', 'rol', 'correo']  # Campos de Usuario
 
 class OperadorListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -90,5 +90,10 @@ class MovimientosDetailSerializer(serializers.ModelSerializer):
         model = Movimientos
         fields = ['id_movimiento', 'refaccion_id', 'vehiculo_id', 'cantidad', 'fecha', 'motivo', 'tipo_movimiento', 'user_id']  # Campos de Movimientos
 
+
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = ['user_id', 'nombre', 'correo', 'rol']
 # ... existing code ...
 

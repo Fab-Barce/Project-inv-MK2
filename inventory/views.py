@@ -24,7 +24,16 @@ from .serializers import RefaccionesDetailSerializer
 from .models import Movimientos
 from .serializers import MovimientosListSerializer
 from .serializers import MovimientosDetailSerializer
-
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from rest_framework import serializers
 
 # Create your views here.
 class CategoriaListAPIView(generics.ListAPIView):
@@ -222,4 +231,85 @@ class MovimientosRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
 class MovimientosDestroyAPIView(generics.DestroyAPIView):
     lookup_field = "id_movimiento"
     queryset = Movimientos.objects.all()
+
+
+class CustomAuthToken(APIView):
+    def post(self, request, *args, **kwargs):
+        # Obtén los datos enviados en el POST (correo y contraseña)
+        correo = request.data.get('correo')
+        password = request.data.get('password')
+
+        if not correo or not password:
+            return Response({"detail": "Both 'correo' and 'password' are required."},
+                             status=status.HTTP_400_BAD_REQUEST)
+
+        # Busca al usuario por correo
+        try:
+            user = Usuario.objects.get(correo=correo)
+        except Usuario.DoesNotExist:
+            return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Verifica la contraseña
+        if user.contrasena == password:  # Asegúrate de cifrar las contraseñas en producción
+            return Response({
+                'token': 'tu_token_aqui',  # Genera y devuelve el token si la autenticación fue exitosa
+                'user_id': user.user_id,
+                'nombre': user.nombre,
+                'rol': user.rol
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+        
+
+class CrearUsuarioView(APIView):
+    def post(self, request):
+        nombre = request.data.get('nombre')
+        contrasena = request.data.get('contrasena')
+        correo = request.data.get('correo')
+        rol = request.data.get('rol')
+
+        if not nombre or not contrasena or not correo:
+            return Response({"detail": "Todos los campos son obligatorios."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Crear usuario con contraseña cifrada
+        usuario = Usuario.objects.create(
+            nombre=nombre,
+            contrasena=make_password(contrasena),
+            correo=correo,
+            rol=rol
+        )
+
+        return Response({
+            "detail": "Usuario creado correctamente",
+            "user_id": usuario.user_id
+        }, status=status.HTTP_201_CREATED)
+    
+
+class ListaUsuariosView(APIView):
+    # ✅ Agregar el método GET para obtener la lista de usuarios
+    def get(self, request):
+        usuarios = Usuario.objects.all()
+        serializer = UsuarioListSerializer(usuarios, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # ✅ Agregar el método POST para crear un nuevo usuario
+    def post(self, request):
+        serializer = UsuarioListSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+ 
+    
+
+class UsuarioDetalleView(APIView):
+    def delete(self, request, id):
+        try:
+            usuario = Usuario.objects.get(user_id=id)
+            usuario.delete()
+            return Response({"detail": "Usuario eliminado correctamente."}, status=status.HTTP_204_NO_CONTENT)
+        except Usuario.DoesNotExist:
+            return Response({"detail": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
 
