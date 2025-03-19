@@ -11,8 +11,11 @@ urlpatterns = [
 
 
     path('api/login/', CustomAuthToken.as_view(), name='api_login'),
+
     path('api/usuarios/', CrearUsuarioView.as_view(), name='crear_usuario'),
+
     path('api/usuarios2/', ListaUsuariosView.as_view(), name='lista_usuarios'),
+    
     path('api/usuarios2/<int:id>/', UsuarioDetalleView.as_view(), name='detalle_usuario'),
     
 
