@@ -63,7 +63,7 @@ class EmpresaDetailSerializer(serializers.ModelSerializer):
 class ProveedorDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proveedor
-        fields = ['proveedor_id', 'nombre', 'direccion']  # Campos de Proveedor
+        fields = ['proveedor_id', 'nombre', 'direccion', 'nombre_representante', 'RFC', 'descripcion', 'num_telef']  # Campos de Proveedor
 
 class UsuarioDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -83,7 +83,7 @@ class VehiculoDetailSerializer(serializers.ModelSerializer):
 class RefaccionesDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Refacciones
-        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'sock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id']  # Campos de Refacciones
+        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id']  # Campos de Refacciones
 
 class MovimientosDetailSerializer(serializers.ModelSerializer):
     class Meta:
