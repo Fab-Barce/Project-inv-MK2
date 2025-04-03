@@ -10,6 +10,8 @@ class Movimientos(models.Model):
     cantidad = models.PositiveIntegerField(blank=True, null=True)  # Cantidad positiva
     fecha = models.DateField(auto_now_add=True)  # Fecha y hora de creación
     hora = models.TimeField(auto_now_add=True)
+    nombre = models.CharField(max_length=255, blank=True, null=True)
+    placas = models.CharField(max_length=255, blank=True, null=True)
     motivo = models.CharField(max_length=255, blank=True, null=True)  # Motivo del movimiento
     tipo_movimiento = models.CharField(max_length=50, blank=True, null=True)  # Tipo de movimiento
     user_id = models.ForeignKey('Usuario', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Usuario 

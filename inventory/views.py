@@ -274,7 +274,7 @@ class CrearUsuarioView(APIView):
         # Crear usuario con contraseña cifrada
         usuario = Usuario.objects.create(
             nombre=nombre,
-            contrasena=make_password(contrasena),
+            contrasena=contrasena,
             correo=correo,
             rol=rol
         )
