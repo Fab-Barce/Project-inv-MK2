@@ -26,7 +26,7 @@ class ProveedorListSerializer(serializers.ModelSerializer):
 class UsuarioListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['user_id', 'nombre', 'rol', 'correo', 'contrasena']  # Campos de Usuario
+        fields = ['user_id', 'nombre', 'rol', 'correo', 'contrasena','activo'] #,'activo' # Campos de Usuario
 
 class OperadorListSerializer(serializers.ModelSerializer):
     empresa = serializers.CharField(source='empresa_id.nombre', read_only=True)
@@ -39,7 +39,7 @@ class VehiculoListSerializer(serializers.ModelSerializer):
     operador = serializers.CharField(source='operador_id.nombre', read_only=True)
     class Meta:
         model = Vehiculo
-        fields = ['vehiculo_id', 'num_serie', 'placas', 'operador_id', 'imagen_vehi', 'empresa_id', 'marca', 'anio', 'empresa', 'operador']  # Campos de Vehiculo
+        fields = ['vehiculo_id', 'num_serie', 'placas', 'operador_id', 'imagen_vehi', 'empresa_id', 'marca', 'anio', 'empresa', 'operador','activo'] #,'activo' # Campos de Vehiculo
 
 class RefaccionesListSerializer(serializers.ModelSerializer):
     proveedor = serializers.CharField(source='proveedor_id.nombre', read_only=True)
@@ -47,7 +47,7 @@ class RefaccionesListSerializer(serializers.ModelSerializer):
     empresa = serializers.CharField(source='empresa_id.nombre', read_only=True)
     class Meta:
         model = Refacciones
-        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id', 'proveedor', 'categoria', 'empresa']  # Campos de Refacciones
+        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id', 'proveedor', 'categoria', 'empresa', 'activo'] #,'activo'  # Campos de Refacciones
 
 class MovimientosListSerializer(serializers.ModelSerializer):
     nombre_refaccion = serializers.CharField(source='refaccion_id.nombre', read_only=True)

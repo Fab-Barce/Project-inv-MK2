@@ -31,6 +31,7 @@ class Refacciones(models.Model):
     categoria_id = models.ForeignKey('Categoria', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Categoria
     imagen_refa = models.ImageField(upload_to='imagenes_refacciones/', blank=True, null=True)  # Imagen de la refacción
     empresa_id = models.ForeignKey('Empresa', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Empresa
+    activo = models.CharField(max_length=100, blank=True, null=True)  # Campo para indicar si la refacción está activa
 
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre
@@ -45,7 +46,9 @@ class Vehiculo(models.Model):
     marca = models.CharField(max_length=100, blank=True, null=True)  # Marca del vehículo
     anio = models.IntegerField(blank=True, null=True)  # Año del vehículo
     linea = models.CharField(max_length=100, blank=True, null=True)  #
+    activo = models.CharField(max_length=100, blank=True, null=True)  #
 
+    
 
     def __str__(self):
         return "{}".format(self.num_serie)  # Regresa el número de serie del vehículo
@@ -55,9 +58,9 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=255, blank=True, null=True)  # Nombre del usuario
     contrasena = models.CharField(max_length=255, blank=True, null=True)  # Contraseña del usuario
     rol = models.CharField(max_length=50, blank=True, null=True)  # Rol del usuario
-    correo = models.CharField(max_length=50, blank=True, null=True) 
+    correo = models.CharField(max_length=50, blank=True, null=True)
+    activo = models.CharField(max_length=100, blank=True, null=True)# Campo para indicar si el usuario está activo
 
-    
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre del usuario
 
