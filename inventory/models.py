@@ -68,6 +68,7 @@ class Categoria(models.Model):
     categoria_id = models.AutoField(primary_key=True)  # Campo autoincremental
     nombre = models.CharField(max_length=255, blank=True, null=True)  # Nombre de la categoría
     descripcion = models.TextField(blank=True, null=True)  # Descripción de la categoría
+    activo = models.CharField(max_length=100, blank=True, null=True) 
 
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre de la categoría
@@ -80,6 +81,7 @@ class Proveedor(models.Model):
     nombre_representante  = models.CharField(max_length=255, blank=True, null=True)
     descripcion = models.CharField(max_length=255, blank=True, null=True)
     num_telef = models.CharField(max_length=255, blank=True, null=True)
+    activo = models.CharField(max_length=100, blank=True, null=True) 
 
 
     def __str__(self):
@@ -89,6 +91,7 @@ class Operador(models.Model):
     operador_id = models.AutoField(primary_key=True)  # Campo autoincremental
     nombre = models.CharField(max_length=255, blank=True, null=True)  # Nombre del operador
     empresa_id = models.ForeignKey('Empresa', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Empresa
+    activo = models.CharField(max_length=100, blank=True, null=True) 
 
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre del operador

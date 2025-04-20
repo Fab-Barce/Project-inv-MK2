@@ -313,3 +313,7 @@ class UsuarioDetalleView(APIView):
         except Usuario.DoesNotExist:
             return Response({"detail": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
 
+class UsuarioRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
+    lookup_field = "user_id"
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioDetailSerializer

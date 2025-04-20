@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/usuarios/', ListaUsuariosView.as_view(), name='lista_usuarios'),
     path('api/usuarios/create/', CrearUsuarioView.as_view(), name='crear_usuario'),
     path('api/usuarios/<int:id>/', UsuarioDetalleView.as_view(), name='detalle_usuario'),
+    path("api/usuarios/update/<int:user_id>/", views.UsuarioRetrieveUpdateAPIView.as_view(), name="update_user"),
     
 
 
