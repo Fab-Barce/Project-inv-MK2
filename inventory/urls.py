@@ -80,6 +80,8 @@ urlpatterns = [
     path("Movimientos/create/", views.MovimientosCreateAPIView.as_view(), name="create_movimiento"),
     path("Movimientos/update/<int:id_movimiento>/", views.MovimientosRetrieveUpdateAPIView.as_view(), name="update_movimiento"),
     path("Movimientos/delete/<int:id_movimiento>/", views.MovimientosDestroyAPIView.as_view(), name="delete_movimiento"),
+
+   
 ]
 
 

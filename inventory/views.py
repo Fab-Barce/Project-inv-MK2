@@ -34,6 +34,11 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Usuario
+
 
 # Create your views here.
 class CategoriaListAPIView(generics.ListAPIView):
@@ -235,19 +240,19 @@ class MovimientosDestroyAPIView(generics.DestroyAPIView):
 
 class CustomAuthToken(APIView):
     def post(self, request, *args, **kwargs):
-        # Obtén los datos enviados en el POST (correo y contraseña)
+        # Obtén los datos enviados en el POST
+        nombre = request.data.get('nombre')
         correo = request.data.get('correo')
         password = request.data.get('password')
 
-        if not correo or not password:
-            return Response({"detail": "Both 'correo' and 'password' are required."},
-                             status=status.HTTP_400_BAD_REQUEST)
+        if not nombre or not correo or not password:
+            return Response({"detail": "Se requieren nombre, correo y contraseña."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Busca al usuario por correo
+        # Busca al usuario por correo y nombre
         try:
-            user = Usuario.objects.get(correo=correo)
+            user = Usuario.objects.get(correo=correo, nombre=nombre)
         except Usuario.DoesNotExist:
-            return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"detail": "Credenciales inválidas."}, status=status.HTTP_401_UNAUTHORIZED)
 
         # Verifica la contraseña
         if user.contrasena == password:  # Asegúrate de cifrar las contraseñas en producción
@@ -255,11 +260,11 @@ class CustomAuthToken(APIView):
                 'token': 'tu_token_aqui',  # Genera y devuelve el token si la autenticación fue exitosa
                 'user_id': user.user_id,
                 'nombre': user.nombre,
-                'rol': user.rol
+                'rol': user.rol,
+                'activo': user.activo  # <-- AGREGA ESTA LÍNEA
             }, status=status.HTTP_200_OK)
         else:
-            return Response({"detail": "Invalid credentials."}, status=status.HTTP_401_UNAUTHORIZED)
-        
+            return Response({"detail": "Credenciales inválidas."}, status=status.HTTP_401_UNAUTHORIZED) 
 
 class CrearUsuarioView(APIView):
     def post(self, request):
@@ -317,3 +322,7 @@ class UsuarioRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     lookup_field = "user_id"
     queryset = Usuario.objects.all()
     serializer_class = UsuarioDetailSerializer
+
+
+
+

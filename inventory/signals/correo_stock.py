@@ -5,7 +5,7 @@ from ..models import Refacciones
 from django.conf import settings
 
 # Lista de correos a notificar
-LISTA_CORREOS = ["inventario@empresa.com", "compras@empresa.com"]
+LISTA_CORREOS = ["inventario@empresa.com", "compras@empresa.com", "angel.oso.rafael@gmail.com" ]
 
 @receiver(post_save, sender=Refacciones)
 def verificar_stock_minimo(sender, instance, created, **kwargs):

@@ -32,6 +32,7 @@ class Refacciones(models.Model):
     imagen_refa = models.ImageField(upload_to='imagenes_refacciones/', blank=True, null=True)  # Imagen de la refacción
     empresa_id = models.ForeignKey('Empresa', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Empresa
     activo = models.CharField(max_length=100, blank=True, null=True)  # Campo para indicar si la refacción está activa
+    marca = models.CharField(max_length=100, blank=True, null=True)  # Marca de la refacción
 
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre
@@ -46,6 +47,7 @@ class Vehiculo(models.Model):
     marca = models.CharField(max_length=100, blank=True, null=True)  # Marca del vehículo
     anio = models.IntegerField(blank=True, null=True)  # Año del vehículo
     linea = models.CharField(max_length=100, blank=True, null=True)  #
+    num_unidad = models.CharField(max_length=100, blank=True, null=True)  #
     activo = models.CharField(max_length=100, blank=True, null=True)  #
 
     
@@ -102,3 +104,4 @@ class Empresa(models.Model):
 
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre de la empresa
+

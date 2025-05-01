@@ -8,6 +8,7 @@ from .models import Vehiculo
 from .models import Refacciones
 from .models import Movimientos
 
+
 class CategoriaListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
@@ -39,7 +40,7 @@ class VehiculoListSerializer(serializers.ModelSerializer):
     operador = serializers.CharField(source='operador_id.nombre', read_only=True)
     class Meta:
         model = Vehiculo
-        fields = ['vehiculo_id', 'num_serie', 'placas', 'operador_id', 'imagen_vehi', 'empresa_id', 'marca', 'anio', 'empresa', 'operador','activo','linea'] #,'activo' # Campos de Vehiculo
+        fields = ['vehiculo_id', 'num_serie', 'placas', 'operador_id', 'imagen_vehi', 'empresa_id', 'marca', 'anio', 'empresa', 'operador','activo','linea', 'num_unidad'] #,'activo' # Campos de Vehiculo
 
 class RefaccionesListSerializer(serializers.ModelSerializer):
     proveedor = serializers.CharField(source='proveedor_id.nombre', read_only=True)
@@ -47,7 +48,7 @@ class RefaccionesListSerializer(serializers.ModelSerializer):
     empresa = serializers.CharField(source='empresa_id.nombre', read_only=True)
     class Meta:
         model = Refacciones
-        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id', 'proveedor', 'categoria', 'empresa', 'activo'] #,'activo'  # Campos de Refacciones
+        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id', 'proveedor', 'categoria', 'empresa', 'activo', 'marca'] #,'activo'  # Campos de Refacciones
 
 class MovimientosListSerializer(serializers.ModelSerializer):
     nombre_refaccion = serializers.CharField(source='refaccion_id.nombre', read_only=True)
@@ -88,12 +89,12 @@ class OperadorDetailSerializer(serializers.ModelSerializer):
 class VehiculoDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehiculo
-        fields = ['vehiculo_id', 'num_serie', 'placas', 'operador_id', 'imagen_vehi', 'empresa_id', 'marca', 'anio','linea','activo']  # Campos de Vehiculo
+        fields = ['vehiculo_id', 'num_serie', 'placas', 'operador_id', 'imagen_vehi', 'empresa_id', 'marca', 'anio','linea','activo', 'num_unidad']  # Campos de Vehiculo
 
 class RefaccionesDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Refacciones
-        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id','activo']  # Campos de Refacciones
+        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id','activo', 'marca']  # Campos de Refacciones
 
 class MovimientosDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -105,5 +106,4 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['user_id', 'nombre', 'correo', 'rol','activo']
-# ... existing code ...
 
