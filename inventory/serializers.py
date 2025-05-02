@@ -53,10 +53,11 @@ class RefaccionesListSerializer(serializers.ModelSerializer):
 class MovimientosListSerializer(serializers.ModelSerializer):
     nombre_refaccion = serializers.CharField(source='refaccion_id.nombre', read_only=True)
     placa_vehiculo = serializers.CharField(source='vehiculo_id.placas', read_only=True)
+    num_unidad = serializers.CharField(source='vehiculo_id.num_unidad', read_only=True)
     user_nombre = serializers.CharField(source='user_id.nombre', read_only=True)
     class Meta:
         model = Movimientos
-        fields = ['id_movimiento', 'refaccion_id', 'vehiculo_id', 'cantidad', 'fecha', 'hora', 'motivo', 'tipo_movimiento', 'user_id', 'nombre', 'placas', 'nombre_refaccion', 'placa_vehiculo', 'user_nombre']  # Campos de Movimientos
+        fields = ['id_movimiento', 'refaccion_id', 'vehiculo_id', 'cantidad', 'fecha', 'hora', 'motivo', 'tipo_movimiento', 'user_id', 'nombre', 'placas', 'nombre_refaccion', 'placa_vehiculo', 'user_nombre', 'num_unidad']  # Campos de Movimientos
 
 
 
