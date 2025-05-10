@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Usa la base de datos para almacenar sesiones
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'almacenproject.urls'
