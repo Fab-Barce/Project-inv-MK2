@@ -11,19 +11,15 @@ urlpatterns = [
 
 
     path('api/login/', CustomAuthToken.as_view(), name='api_login'),
-
-    #path('api/usuarios/', CrearUsuarioView.as_view(), name='crear_usuario'),
-
-   # path('api/usuarios2/', ListaUsuariosView.as_view(), name='lista_usuarios'),
-    
-  #  path('api/usuarios2/<int:id>/', UsuarioDetalleView.as_view(), name='detalle_usuario'),
+  # path('api/usuarios/', CrearUsuarioView.as_view(), name='crear_usuario'),
+  # path('api/usuarios2/', ListaUsuariosView.as_view(), name='lista_usuarios'),
+  # path('api/usuarios2/<int:id>/', UsuarioDetalleView.as_view(), name='detalle_usuario'),
 
     path('api/usuarios/', ListaUsuariosView.as_view(), name='lista_usuarios'),
     path('api/usuarios/create/', CrearUsuarioView.as_view(), name='crear_usuario'),
     path('api/usuarios/<int:id>/', UsuarioDetalleView.as_view(), name='detalle_usuario'),
     path("api/usuarios/update/<int:user_id>/", views.UsuarioRetrieveUpdateAPIView.as_view(), name="update_user"),
-    
-
+    path("api/usuarios/delete/<int:user_id>/", views.UsuarioDestroyAPIView.as_view(), name="delete_user"),
 
     # Rutas para Categorias
     path("Categorias/", views.CategoriaListAPIView.as_view(), name="lista_categoria"),

@@ -23,6 +23,7 @@ class Refacciones(models.Model):
     refaccion_id = models.AutoField(primary_key=True)  # Campo autoincremental
     proveedor_id = models.ForeignKey('Proveedor', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Proveedor
     vehiculo_id = models.ForeignKey('Vehiculo', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Vehiculo
+    linas = models.TextField(blank=True, null=True)
     numero_parte = models.CharField(max_length=100, blank=True, null=True)  # Número de parte
     nombre = models.CharField(max_length=255, blank=True, null=True)  # Nombre de la refacción
     cantidad = models.PositiveIntegerField(blank=True, null=True)  # Cantidad positiva
@@ -32,7 +33,8 @@ class Refacciones(models.Model):
     imagen_refa = models.ImageField(upload_to='imagenes_refacciones/', blank=True, null=True)  # Imagen de la refacción
     empresa_id = models.ForeignKey('Empresa', on_delete=models.CASCADE, blank=True, null=True)  # Relación con el modelo Empresa
     activo = models.CharField(max_length=100, blank=True, null=True)  # Campo para indicar si la refacción está activa
-    marca = models.CharField(max_length=100, blank=True, null=True)  # Marca de la refacción
+    marca = models.CharField(max_length=100, blank=True, null=True)  # Marca de la refacción        
+    #comentario_refa = models.CharField(max_length=100, blank=True, null=True) #
 
     def __str__(self):
         return "{}".format(self.nombre)  # Regresa el nombre

@@ -307,8 +307,6 @@ class ListaUsuariosView(APIView):
     
 
  
-    
-
 class UsuarioDetalleView(APIView):
     def delete(self, request, id):
         try:
@@ -322,6 +320,11 @@ class UsuarioRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
     lookup_field = "user_id"
     queryset = Usuario.objects.all()
     serializer_class = UsuarioDetailSerializer
+
+
+class UsuarioDestroyAPIView(generics.DestroyAPIView):
+    lookup_field = "user_id"
+    queryset =  Usuario.objects.all()
 
 
 
