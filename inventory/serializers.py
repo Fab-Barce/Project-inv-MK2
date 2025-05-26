@@ -48,7 +48,7 @@ class RefaccionesListSerializer(serializers.ModelSerializer):
     empresa = serializers.CharField(source='empresa_id.nombre', read_only=True)
     class Meta:
         model = Refacciones
-        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id', 'proveedor', 'categoria', 'empresa', 'activo', 'marca', 'linas'] #,'comentario_refa'  # Campos de Refacciones
+        fields = ['refaccion_id', 'proveedor_id', 'vehiculo_id', 'numero_parte', 'nombre', 'cantidad', 'stock_minimo', 'costo', 'categoria_id', 'imagen_refa', 'empresa_id', 'proveedor', 'categoria', 'empresa', 'activo', 'marca', 'linas'] #,'activo'  # Campos de Refacciones
 
 class MovimientosListSerializer(serializers.ModelSerializer):
     nombre_refaccion = serializers.CharField(source='refaccion_id.nombre', read_only=True)
